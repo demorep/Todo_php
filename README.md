@@ -1,0 +1,19 @@
+## Laravel First Project TODO List
+
+This project is a simple TODO List in php laravel framework. This includes MySQL, MongoDB and Laravel Framework. "laravel" folder is obtained from [this project](https://github.com/laravel/laravel)
+
+ ### Requirements
+ - [Docker](https://docs.docker.com/)
+
+ ### Install w/ MySQL DB
+- `$ sudo docker-compose up -d` Installs MySQL, php and Laravel Framework to docker.
+- `$ docker-compose build`
+- `$ sudo docker exec -it todo_list_app bash` Connects the docker.
+#### In Docker
+- `$ composer install` Installs required package.
+- `$ chmod -R 777 storage` Gives privilege to access logs.
+- `$ php artisan key:generate` Gives a key ("base64:Nd/kXnzZfPRhQV+ELuKdOuFc4DzFH99WQfNK2gKRm10="). Open /MySQL DB/laravel/.env and assign "APP_KEY=" field to this key.
+- `$ php artisan migrate:refresh` Creates the tasks table.
+
+
+Now, you can access the website with [localhost:80](http://localhost:80).
