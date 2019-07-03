@@ -41,7 +41,7 @@ spec:
   config:
     commands: |-
        tar -xvzf /tmp/hyperion-web-artifact.tar.gz -C /var/www/
-       sed -i "s/{{ APP_HOSTNAME }}/$APPHOST/g" /var/www/vhost.conf.tpl
+       sed -i "s/{{ APP_HOSTNAME }}/$APP_HOST/g" /var/www/vhost.conf.tpl
        sed -i "s/{{ APP_PORT }}/$APP_PORT/g" /var/www/vhost.conf.tpl
        mv /var/www/vhost.conf.tpl /etc/nginx/conf.d/default.conf
        
