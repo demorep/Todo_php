@@ -1,23 +1,9 @@
-#!groovy
-pipeline {
-    agent any
+node {
+   // Mark the code checkout 'stage'....
+   stage 'checkout'
 
-    stages {
-        stage('Build') {
-            steps {
-                echo 'Building..'
-            }
-        }
-        stage('Test') {
-            steps {
-                echo 'Testing..'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
-            }
-        }
-    }
+   // Get some code from a GitHub repository
+   git url: 'https://github.com/demorep/Todo_php.git'
+   sh 'git clean -fdx; sleep 4;'
+
 }
-
