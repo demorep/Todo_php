@@ -20,6 +20,7 @@ pipeline {
                 sh "docker container create --name todoapp_artifact todo_app_artifact_image:${BUILD_NUMBER}"
                 sh "docker container cp todoapp_artifact:/var/www/ ${WORKSPACE}/artifacts/app"
                 sh "docker container rm -f todoapp_artifact"
+                sh "cp -rap ${WORKSPACE}/app/dependencies-install.sh ${WORKSPACE}/artifacts/app/www/"
                 sh "tar -cvzf ${WORKSPACE}/artifacts/app/app-bundle.tar.gz . -C ${WORKSPACE}/artifacts/app/www"
                 sh "cp -r ${WORKSPACE}/src ${WORKSPACE}/artifacts/web/ && cp -r ${WORKSPACE}/web/vhost.conf.tpl ${WORKSPACE}/artifacts/web/src/"
                 sh "tar -cvzf ${WORKSPACE}/artifacts/web/web-bundle.tar.gz . -C ${WORKSPACE}/artifacts/web/src"
