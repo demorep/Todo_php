@@ -20,7 +20,7 @@ spec:
     name: php
     version: 7-fpm
     docker-registry: {{ DOCKER_REGISTRY_NAME | default('dockerhub') }} # make sure helpers is in place
-    importImage: postgres:9.3
+    importImage: php:7-fpm
     ports:
     - name: php-fpm-port
       type: TCP
@@ -39,10 +39,12 @@ spec:
   config:
     commands: |-
        tar -xvzf /tmp/hyperion-app-artifact.tar.gz -C /var/www/
+       chmod -R 777 /var/www/storage
        echo "Installing Dependencies for app to run..."
        bash -x /var/www/dependencies-install.sh
        echo "Dependencies installed !"
-       echo "Migrated Databases..."
+       echo "Migrating Databases..."
+       cd /var/www/
        php artisan migrate:refresh
        echo "Database Successfully Migrated !"
        
@@ -52,3 +54,20 @@ spec:
     - key: DB_HOST
       type: ENDPOINT
       value: "database"
+    - key: DB_USERNAME
+      value: "root"
+    - key: DB_DATABASE
+      value: "dockerApp"
+    - key: DB_PASSWORD
+      type: PASSWORD
+      value: {{ DB_PASSWORD | default('secret') }}
+    - key: DB_CONNECTION
+      value: "mysql"
+    - key: APP_DEBUG
+      value: {{ APP_DEBUG | default('true') }}
+    - key: APP_ENV
+      value: {{ APP_ENV | default('local') }}
+    - key: APP_LOG
+      value: {{ APP_LOG | default('daily') }}
+    - key: APP_LOG_LEVEL
+      value: {{ APP_LOG_LEVEL | default('debug') }}
