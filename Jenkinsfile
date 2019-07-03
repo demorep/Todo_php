@@ -2,12 +2,12 @@ pipeline {
     agent any
 
     stages {
-        stage('checkout') {
-            steps {
-                git url: 'https://github.com/demorep/Todo_php.git'
-                sh 'git clean -fdx; sleep 4;'
-            }
-        }
+\\        stage('checkout') {
+\\            steps {
+\\                git url: 'https://github.com/demorep/Todo_php.git'
+\\                sh 'git clean -fdx; sleep 4;'
+\\            }
+\\        }
         stage('Build App') {
             steps {
                 sh "docker build --target install -t todo_app_artifact_image:${BUILD_NUMBER} -f app/Dockerfile ."
@@ -33,5 +33,19 @@ pipeline {
                  sh "mkdir -p /artifactory_home/hyperion-artifacts/app/${BUILD_NUMBER}/ /artifactory_home/hyperion-artifacts/web/${BUILD_NUMBER}/ && cp ${WORKSPACE}/artifacts/app/app-bundle.tar.gz /artifactory_home/hyperion-artifacts/app/${BUILD_NUMBER}/ && cp ${WORKSPACE}/artifacts/web/web-bundle.tar.gz /artifactory_home/hyperion-artifacts/web/${BUILD_NUMBER}/"
         }
       }
+        stage('Deploy-to-Dev') {
+            steps {
+            echo 'Deploying to Dev...'
+        }
+ 
+      }
+
+        stage('Test-Dev') {
+            steps {
+            echo 'Running Test on Dev...'
+        }
+
+      }
+
     }
 }
