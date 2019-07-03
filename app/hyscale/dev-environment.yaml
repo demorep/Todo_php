@@ -1,0 +1,11 @@
+kind: Environment
+apiVersion: hyscale.io/v1
+metadata:
+  name: qa
+  applicationName: todo
+  labels:
+    type: qa
+spec:
+  registry: gcr
+  k8sCluster: GKEQA
+  k8sNamespace: todo-qa

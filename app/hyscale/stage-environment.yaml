@@ -1,0 +1,11 @@
+kind: Environment
+apiVersion: hyscale.io/v1
+metadata:
+  name: stage
+  applicationName: todo
+  labels:
+    type: stage
+spec:
+  registry: gcr
+  k8sCluster: GKEQA
+  k8sNamespace: todo-stage
