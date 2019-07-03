@@ -7,6 +7,9 @@ services:
             - "8888:80"
         links:
             - app
+        environment:
+            - "APP_HOST=app"
+            - "APP_PORT=9000"
     app:
         container_name: todo_list_app
         image: vijaysamanuri/todo-app:1.0
