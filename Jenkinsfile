@@ -10,17 +10,17 @@ pipeline {
         }
         stage('Build App') {
             steps {
-                sh "docker build --target install -t todoapp:1.0 -f app/Dockerfile ."
+                sh "docker build --target install -t todo_app_artifact_image:${BUILD_NUMBER} -f app/Dockerfile ."
             }
 
         }
         stage('Extract Artifact') {
             steps {
-                sh "rm -rf ${WORKSPACE}/app_art/* && mkdir ${WORKSPACE}/app_art"
-                sh "docker container create --name extract todoapp:1.0"
-                sh "docker container cp extract:/var/www/ ${WORKSPACE}/app_art/"
-                sh "docker container rm -f extract"
-                sh "tar -cf ${WORKSPACE}/app_art/todoapp.tar www -C ${WORKSPACE}/app_art/"
+                sh "rm -rf ${WORKSPACE}/app_art/* && mkdir -p ${WORKSPACE}/artifacts/app"
+                sh "docker container create --name todoapp_artifact todoapp:1.0"
+                sh "docker container cp todoapp_artifact:/var/www/ ${WORKSPACE}/artifacts/app"
+                sh "docker container rm -f todoapp_artifact"
+                sh "tar -cvzf ${WORKSPACE}/artifacts/app/app-bundle.tar.gz . -C ${WORKSPACE}/artifacts/app/www"
             }
         }
     }
