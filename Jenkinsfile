@@ -2,12 +2,6 @@ pipeline {
     agent any
 
     stages {
-\\        stage('checkout') {
-\\            steps {
-\\                git url: 'https://github.com/demorep/Todo_php.git'
-\\                sh 'git clean -fdx; sleep 4;'
-\\            }
-\\        }
         stage('Build App') {
             steps {
                 sh "docker build --target install -t todo_app_artifact_image:${BUILD_NUMBER} -f app/Dockerfile ."
