@@ -23,5 +23,13 @@ steps:
     sourceFolder: '$(Build.ArtifactStagingDirectory)/'
     contents: '**'
     targetFolder: '/tmp/todo_demo/$(Build.BuildNumber)/todo/'
+- task: SSH@0
+  inputs:
+    sshEndpoint: 'hyscalectl-docker-jumpbox'
+    runOptions: 'commands'
+    commands: 'tar -xzf /tmp/todo_demo/$(Build.BuildNumber)/todo/$(Build.BuildNumber).tar.gz -C /tmp/todo_demo/$(Build.BuildNumber)/todo/
+      
+      /usr/bin/docker build --target install -t todo_app_artifact_image:$(Build.BuildNumber) -f /tmp/todo_demo/$(Build.BuildNumber)/todo/app/Dockerfile /tmp/todo_demo/$(Build.BuildNumber)/'
+
 
 
