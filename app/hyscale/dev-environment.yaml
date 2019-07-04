@@ -7,5 +7,5 @@ metadata:
     type: qa
 spec:
   registry: gcr
-  k8sCluster: GKEQA
-  k8sNamespace: todo-qa
+  k8sCluster: GKE12
+  k8sNamespace: todo-dev

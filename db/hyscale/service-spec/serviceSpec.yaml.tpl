@@ -13,7 +13,7 @@ spec:
   stack:
     name: mysql
     version: 5.6
-    docker-registry: {{ DOCKER_REGISTRY_NAME | default('dockerhub') }} # make sure helpers is in place
+    docker-registry: dockerhub1
     importImage: mysql:5.6
     ports:
     - name: mysql-port
@@ -27,6 +27,6 @@ spec:
     props:
     - key: MYSQL_ROOT_PASSWORD
       type: PASSWORD
-      value: {{ MYSQL_ROOT_PASSWORD | default('secret') }}
+      value: "{{ MYSQL_ROOT_PASSWORD | default('c2VjcmV0') }}"
     - key: MYSQL_DATABASE
       value: "dockerApp"
