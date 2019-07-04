@@ -8,18 +8,14 @@ metadata:
     memory: "{{ MEMORY_LIMIT_IN_MB | default('512') }}"
   dependencies:
   - database
-  healthChecks:
-  - port: 9000
-    healthCheckType: HTTP
-    httpPath: "/index.php"
   deployProps:
   - key: BUILD_NUMBER
     value: "{{ BUILD_NUMBER | default ('100') }}"
 spec:
   stack:
-    name: php
+    name: phpnew
     version: 7-fpm
-    docker-registry: {{ DOCKER_REGISTRY_NAME | default('dockerhub') }} # make sure helpers is in place
+    docker-registry: dockerhub1
     importImage: php:7-fpm
     ports:
     - name: php-fpm-port
@@ -33,7 +29,7 @@ spec:
   - name: todo_app_artifact_bundle
     destination: "/tmp/"
     source:
-      store: {{ JENKINS_ARTIFACTORY_NAME | default('Jenkins') }} # helpers
+      store: "jenkins"
       basedir: "/tmp/hyperion-artifacts/app/${BUILD_NUMBER}"
       path: "hyperion-app-artifact.tar.gz"
   config:
