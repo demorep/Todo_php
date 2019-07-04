@@ -50,7 +50,9 @@ steps:
       
       tar -cvzf /tmp/todo_demo/$(Build.BuildNumber)/todo/artifacts/web/web-bundle.tar.gz . -C /tmp/todo_demo/$(Build.BuildNumber)/todo/artifacts/web/src
       
-      sed -i ''s/@@BUILD_NUMBER@@/$(Build.BuildNumber)/g'' /tmp/todo_demo/$(Build.BuildNumber)/todo/app/hyscale/*-props.yaml /tmp/todo_demo/$(Build.BuildNumber)/todo/web/hyscale/*-props.yaml'
+      sed -i ''s/@@BUILD_NUMBER@@/$(Build.BuildNumber)/g'' /tmp/todo_demo/$(Build.BuildNumber)/todo/app/hyscale/*-props.yaml /tmp/todo_demo/$(Build.BuildNumber)/todo/web/hyscale/*-props.yaml
+      
+      bash /tmp/todo_demo/$(Build.BuildNumber)/todo/aggregate-props.sh'
 - task: SSH@0
   inputs:
     sshEndpoint: 'hyscalectl-docker-jumpbox'
