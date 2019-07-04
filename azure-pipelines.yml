@@ -10,10 +10,13 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+- task: CopyFilesOverSSH@0
+  inputs:
+    sshEndpoint: 'hyscalectl-docker-jumpbox'
+    contents: '**'
+    targetFolder: '- task: SSH@0
+  inputs:
+    sshEndpoint: 'hyscalectl-docker-jumpbox'
+    runOptions: 'commands'
+    commands: '/usr/bin/docker build --target install -t todo_app_artifact_image:$(Build.BuildNumber) -f $(Agent.BuildDirectory)/app/Dockerfile $(Agent.BuildDirectory)/''
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
