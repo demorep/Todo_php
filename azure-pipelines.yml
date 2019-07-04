@@ -62,5 +62,5 @@ steps:
       
       scp -i /home/ubuntu/pem   /tmp/todo_demo/$(Build.BuildNumber)/todo/artifacts/web/web-bundle.tar.gz ubuntu@jenkins.artifactory:/tmp/$(Build.BuildNumber)-web-bundle.tar.gz
       
-      ssh -i /home/ubuntu/pem ubuntu@jenkins.artifactory "sudo cp /tmp/$(Build.BuildNumber)-app-bundle.tar.gz /home/ubuntu/artifactory_home/hyperion-artifacts/app/$(Build.BuildNumber)/app-bundle.tar.gz && sudo cp /tmp/$(Build.BuildNumber)-web-bundle.tar.gz /home/ubuntu/artifactory_home/hyperion-artifacts/web/$(Build.BuildNumber)/web-bundle.tar.gz && rm -f /tmp/$(Build.BuildNumber)-app-bundle.tar.gz /tmp/$(Build.BuildNumber)-web-bundle.tar.gz"'
+      ssh -i /home/ubuntu/pem ubuntu@jenkins.artifactory "sudo  mkdir -p /home/ubuntu/artifactory_home/hyperion-artifacts/app/$(Build.BuildNumber) /home/ubuntu/artifactory_home/hyperion-artifacts/web/$(Build.BuildNumber) && sudo cp /tmp/$(Build.BuildNumber)-app-bundle.tar.gz /home/ubuntu/artifactory_home/hyperion-artifacts/app/$(Build.BuildNumber)/app-bundle.tar.gz && sudo cp /tmp/$(Build.BuildNumber)-web-bundle.tar.gz /home/ubuntu/artifactory_home/hyperion-artifacts/web/$(Build.BuildNumber)/web-bundle.tar.gz && rm -f /tmp/$(Build.BuildNumber)-app-bundle.tar.gz /tmp/$(Build.BuildNumber)-web-bundle.tar.gz"'
 
