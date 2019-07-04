@@ -15,11 +15,13 @@ steps:
     rootFolderOrFile: '$(Build.BinariesDirectory)'
     includeRootFolder: true
     archiveType: 'tar'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).tar.gz'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/dist/$(Build.BuildNumber).tar.gz'
     replaceExistingArchive: true
 - task: CopyFilesOverSSH@0
   inputs:
     sshEndpoint: 'hyscalectl-docker-jumpbox'
-    contents: '$(Build.BuildId).tar.gz'
-    targetFolder: '/tmp/todo_demo/$(Build.BuildNumber)/todo/' 
+    sourceFolder: '$(Build.ArtifactStagingDirectory)/dist'
+    contents: '**'
+    targetFolder: '/tmp/todo_demo/$(Build.BuildNumber)/todo/'
+
 
