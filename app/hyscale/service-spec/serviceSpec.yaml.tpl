@@ -60,14 +60,14 @@ spec:
       value: "dockerApp"
     - key: DB_PASSWORD
       type: PASSWORD
-      value: {{ DB_PASSWORD | default('secret') }}
+      value: "{{ DB_PASSWORD | default('cGFzc3dvcmQ=') }}"
     - key: DB_CONNECTION
       value: "mysql"
     - key: APP_DEBUG
-      value: {{ APP_DEBUG | default('true') }}
+      value: "{{ APP_DEBUG | default('true') }}"
     - key: APP_ENV
-      value: {{ APP_ENV | default('local') }}
+      value: "{{ APP_ENV | default('local') }}"
     - key: APP_LOG
-      value: {{ APP_LOG | default('daily') }}
+      value: "{{ APP_LOG | default('daily') }}"
     - key: APP_LOG_LEVEL
-      value: {{ APP_LOG_LEVEL | default('debug') }}
+      value: "{{ APP_LOG_LEVEL | default('debug') }}"
