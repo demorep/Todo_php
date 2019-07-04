@@ -2,7 +2,11 @@ version: '2'
 services:
     web:
         container_name: todo_list_web
-        image: vijaysamanuri/todo-web:1.0
+        build:
+            context: ./
+            dockerfile: ./web/Dockerfile
+#        volumes:
+#            - ./src:/var/www
         ports:
             - "8888:80"
         links:
@@ -11,8 +15,13 @@ services:
             - "APP_HOST=app"
             - "APP_PORT=9000"
     app:
+     
         container_name: todo_list_app
-        image: vijaysamanuri/todo-app:1.0
+        build:
+            context: ./
+            dockerfile: ./app/Dockerfile
+#        volumes:
+#            - ./src:/var/www
         links:
             - database
         environment:
