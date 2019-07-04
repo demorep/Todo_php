@@ -21,7 +21,7 @@ spec:
     importImage: nginx:1.10
     ports:
     - name: nginx-port
-      type: TCP
+      type: HTTP
       port: 80
       default: 80 # why
     os: Ubuntu:14.04 # To be removed

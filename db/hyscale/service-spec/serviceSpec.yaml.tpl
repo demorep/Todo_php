@@ -22,7 +22,12 @@ spec:
       default: 3306 # why
     os: Ubuntu:14.04 # To be removed
     distribution: DEBIAN # why
-
+  dataDirectories:
+   - name: mysql-data-dir
+     path: "/var/lib/mysql"
+     readOnly: false
+     sizeInGB: "{{ MYSQL_DATA_DIR_IN_GB | default('1')}}"
+     storageClass: "{{ STORAGE_CLASS | default('default') }}"
   config:
     props:
     - key: MYSQL_ROOT_PASSWORD
