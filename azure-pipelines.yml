@@ -12,15 +12,15 @@ pool:
 steps:
 - task: ArchiveFiles@2
   inputs:
-    rootFolderOrFile: '$(Build.BuildDirectory)'
+    rootFolderOrFile: '$(Agent.BuildDirectory)'
     includeRootFolder: true
     archiveType: 'tar'
-    archiveFile: '$(Build.BuildDirectory)/dist/$(Build.BuildNumber).tar.gz'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildNumber).tar.gz'
     replaceExistingArchive: true
 - task: CopyFilesOverSSH@0
   inputs:
     sshEndpoint: 'hyscalectl-docker-jumpbox'
-    sourceFolder: '$(Build.BuildDirectory)/dist'
+    sourceFolder: '$(Build.ArtifactStagingDirectory)/'
     contents: '**'
     targetFolder: '/tmp/todo_demo/$(Build.BuildNumber)/todo/'
 
