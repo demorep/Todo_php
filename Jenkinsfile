@@ -32,6 +32,7 @@ pipeline {
             echo 'Deploying to Dev...'
             sh "hyscalectl login hyperion.hyscale.io -uhyscalecli@hyscale.io -pHysc@l3Cl!"
             sh "hyscalectl  deploy -f ${WORKSPACE}/db/hyscale/service-spec/serviceSpec.yaml.tpl -f ${WORKSPACE}/app/hyscale/service-spec/serviceSpec.yaml.tpl -f ${WORKSPACE}/web/hyscale/service-spec/serviceSpec.yaml.tpl -e dev -p ${WORKSPACE}/app/hyscale/dev-props.yaml -a demo-Todo-app"
+            sh "hyscalectl  track env dev -a demo-Todo-app"
         }
  
       }
@@ -47,6 +48,7 @@ pipeline {
             echo 'Deploying to Stage...'
             sh "hyscalectl login hyperion.hyscale.io -uhyscalecli@hyscale.io -pHysc@l3Cl!"
             sh "hyscalectl  deploy -f ${WORKSPACE}/db/hyscale/service-spec/serviceSpec.yaml.tpl -f ${WORKSPACE}/app/hyscale/service-spec/serviceSpec.yaml.tpl -f ${WORKSPACE}/web/hyscale/service-spec/serviceSpec.yaml.tpl -e stage -p ${WORKSPACE}/app/hyscale/stage-props.yaml -a demo-Todo-app"
+           sh "sh "hyscalectl  track env stage -a demo-Todo-app""
         }
 
       }
@@ -61,6 +63,7 @@ pipeline {
             echo 'Deploying to Prod...'
             sh "hyscalectl login hyperion.hyscale.io -uhyscalecli@hyscale.io -pHysc@l3Cl!"
             sh "hyscalectl  deploy -f ${WORKSPACE}/db/hyscale/service-spec/serviceSpec.yaml.tpl -f ${WORKSPACE}/app/hyscale/service-spec/serviceSpec.yaml.tpl -f ${WORKSPACE}/web/hyscale/service-spec/serviceSpec.yaml.tpl -e prod -p ${WORKSPACE}/app/hyscale/prod-props.yaml -a demo-Todo-app"
+           sh "sh "hyscalectl  track env prod -a demo-Todo-app""
         }
 
       }
