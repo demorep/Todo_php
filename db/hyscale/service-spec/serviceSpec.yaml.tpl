@@ -13,7 +13,7 @@ spec:
   stack:
     name: mysql
     version: 5.6
-    docker-registry: dockerhub1
+    docker-registry: dockerhublibrary
     importImage: mysql:5.6
     ports:
     - name: mysql-port

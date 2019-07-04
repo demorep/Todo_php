@@ -15,7 +15,7 @@ spec:
   stack:
     name: phpnew
     version: 7-fpm
-    docker-registry: dockerhub1
+    docker-registry: "dockerhublibrary"
     importImage: php:7-fpm
     ports:
     - name: php-fpm-port

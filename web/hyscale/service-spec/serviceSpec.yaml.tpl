@@ -17,7 +17,7 @@ spec:
   stack:
     name: nginx
     version: 1.10
-    docker-registry: "dockerhub1"
+    docker-registry: "dockerhublibrary"
     importImage: nginx:1.10
     ports:
     - name: nginx-port
