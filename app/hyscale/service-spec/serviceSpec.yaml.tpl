@@ -34,7 +34,7 @@ spec:
       path: "app-bundle.tar.gz"
   config:
     commands: |-
-       tar -xvzf /tmp/hyperion-app-artifact.tar.gz -C /var/www/
+       tar -xvzf /tmp/app-bundle.tar.gz -C /var/www/
        chmod -R 777 /var/www/storage
        echo "Installing Dependencies for app to run..."
        bash -x /var/www/dependencies-install.sh
