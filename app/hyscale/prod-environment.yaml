@@ -2,10 +2,10 @@ kind: Environment
 apiVersion: hyscale.io/v1
 metadata:
   name: prod
-  applicationName: todo
+  applicationName: demo-Todo-app
   labels:
     type: prod
 spec:
-  registry: gcr
-  k8sCluster: GKEQA
-  k8sNamespace: todo-prod
+  registry: acr
+  k8sCluster: AKS
+  k8sNamespace: dev-todo-app

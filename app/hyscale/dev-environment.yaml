@@ -1,11 +1,11 @@
 kind: Environment
 apiVersion: hyscale.io/v1
 metadata:
-  name: qa
-  applicationName: todo
+  name: dev
+  applicationName: demo-Todo-app
   labels:
-    type: qa
+    type: dev
 spec:
-  registry: gcr
-  k8sCluster: GKE12
-  k8sNamespace: todo-dev
+  registry: acr
+  k8sCluster: AKS
+  k8sNamespace: dev-todo-app
