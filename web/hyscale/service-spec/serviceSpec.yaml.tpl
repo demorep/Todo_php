@@ -31,8 +31,8 @@ spec:
   - name: todo_web_artifact_bundle
     destination: "/tmp/"
     source:
-      store: jenkins
-      basedir: "/tmp/hyperion-artifacts/web/${BUILD_NUMBER}/"
+      store: Jenkins
+      basedir: "/artifactory_home/hyperion-artifacts/web/${BUILD_NUMBER}/"
       path: "hyperion-web-artifact.tar.gz"
   config:
     commands: |-

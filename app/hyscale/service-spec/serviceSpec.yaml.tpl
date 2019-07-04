@@ -29,8 +29,8 @@ spec:
   - name: todo_app_artifact_bundle
     destination: "/tmp/"
     source:
-      store: "jenkins"
-      basedir: "/tmp/hyperion-artifacts/app/${BUILD_NUMBER}"
+      store: "Jenkins"
+      basedir: "/artifactory_home/hyperion-artifacts/app/${BUILD_NUMBER}"
       path: "hyperion-app-artifact.tar.gz"
   config:
     commands: |-
