@@ -1,0 +1,11 @@
+kind: Environment
+apiVersion: hyscale.io/v1
+metadata:
+  name: stage
+  applicationName: todo-azure
+  labels:
+    type: stage
+spec:
+  registry: acr
+  k8sCluster: AKS
+  k8sNamespace: stage-todo-azure
