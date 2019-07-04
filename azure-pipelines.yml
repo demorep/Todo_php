@@ -30,6 +30,27 @@ steps:
     commands: 'tar -xzf /tmp/todo_demo/$(Build.BuildNumber)/todo/$(Build.BuildNumber).tar.gz -C /tmp/todo_demo/$(Build.BuildNumber)/todo/
       
       /usr/bin/docker build --target install -t todo_app_artifact_image:$(Build.BuildNumber) -f /tmp/todo_demo/$(Build.BuildNumber)/todo/app/Dockerfile /tmp/todo_demo/$(Build.BuildNumber)/todo/'
-
-
-
+- task: SSH@0
+  inputs:
+    sshEndpoint: 'hyscalectl-docker-jumpbox'
+    runOptions: 'commands'
+    commands: 'mkdir -p /tmp/todo_demo/$(Build.BuildNumber)/todo/artifacts/app  /tmp/todo_demo/$(Build.BuildNumber)/todo/artifacts/web
+      /usr/bin/docker container create --name todoapp_artifact todo_app_artifact_image:$(Build.BuildNumber)
+      docker container cp todoapp_artifact:/var/www/ /tmp/todo_demo/$(Build.BuildNumber)/todo/artifacts/app
+      
+      docker container rm -f todoapp_artifact
+      cp -rap /tmp/todo_demo/$(Build.BuildNumber)/todo/app/dependencies-install.sh /tmp/todo_demo/$(Build.BuildNumber)/todo/artifacts/app/www/
+      tar -czf /tmp/todo_demo/$(Build.BuildNumber)/todo/artifacts/app/app-bundle.tar.gz . -C /tmp/todo_demo/$(Build.BuildNumber)/todo/artifacts/app/www
+      cp -r /tmp/todo_demo/$(Build.BuildNumber)/todo/src /tmp/todo_demo/$(Build.BuildNumber)/todo/artifacts/web/ && cp -r /tmp/todo_demo/$(Build.BuildNumber)/todo/web/vhost.conf.tpl /tmp/todo_demo/$(Build.BuildNumber)/todo/artifacts/web/src/
+      tar -cvzf /tmp/todo_demo/$(Build.BuildNumber)/todo/artifacts/web/web-bundle.tar.gz . -C /tmp/todo_demo/$(Build.BuildNumber)/todo/artifacts/web/src
+      sed -i ''s/@@BUILD_NUMBER@@/$(Build.BuildNumber)/g'' /tmp/todo_demo/$(Build.BuildNumber)/todo/app/hyscale/*-props.yaml /tmp/todo_demo/$(Build.BuildNumber)/todo/web/hyscale/*-props.yaml'
+- task: SSH@0
+  inputs:
+    sshEndpoint: 'hyscalectl-docker-jumpbox'
+    runOptions: 'commands'
+    commands: 'scp -i /home/ubuntu/pem   /tmp/todo_demo/$(Build.BuildNumber)/todo/artifacts/app/app-bundle.tar.gz ubuntu@jenkins.artifactory:/tmp/$(Build.BuildNumber)-app-bundle.tar.gz
+      
+      
+      scp -i /home/ubuntu/pem   /tmp/todo_demo/$(Build.BuildNumber)/todo/artifacts/web/web-bundle.tar.gz ubuntu@jenkins.artifactory:/tmp/$(Build.BuildNumber)-web-bundle.tar.gz
+      
+      ssh -i /home/ubuntu/pem ubuntu@jenkins.artifactory "sudo cp /tmp/$(Build.BuildNumber)-app-bundle.tar.gz /home/ubuntu/artifactory_home/hyperion-artifacts/app/$(Build.BuildNumber)/app-bundle.tar.gz && sudo cp /tmp/$(Build.BuildNumber)-web-bundle.tar.gz /home/ubuntu/artifactory_home/hyperion-artifacts/web/$(Build.BuildNumber)/web-bundle.tar.gz && rm -f /tmp/$(Build.BuildNumber)-app-bundle.tar.gz /tmp/$(Build.BuildNumber)-web-bundle.tar.gz"'
