@@ -30,6 +30,8 @@ pipeline {
         stage('Deploy-to-Dev') {
             steps {
             echo 'Deploying to Dev...'
+            sh "hyscalectl login hyperion.hyscale.io -uhyscalecli@hyscale.io -pHysc@l3Cl!"
+            sh "hyscalectl  deploy -f ${WORKSPACE}/db/hyscale/service-spec/serviceSpec.yaml.tpl -f ${WORKSPACE}/app/hyscale/service-spec/serviceSpec.yaml.tpl -f ${WORKSPACE}/web/hyscale/service-spec/serviceSpec.yaml.tpl -e dev -p ${WORKSPACE}/app/hyscale/dev-props.yaml -a demo-Todo-app"
         }
  
       }
