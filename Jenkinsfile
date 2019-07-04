@@ -42,6 +42,34 @@ pipeline {
         }
 
       }
+        stage('Deploy-to-Stage') {
+            steps {
+            echo 'Deploying to Stage...'
+            sh "hyscalectl login hyperion.hyscale.io -uhyscalecli@hyscale.io -pHysc@l3Cl!"
+            sh "hyscalectl  deploy -f ${WORKSPACE}/db/hyscale/service-spec/serviceSpec.yaml.tpl -f ${WORKSPACE}/app/hyscale/service-spec/serviceSpec.yaml.tpl -f ${WORKSPACE}/web/hyscale/service-spec/serviceSpec.yaml.tpl -e stage -p ${WORKSPACE}/app/hyscale/stage-props.yaml -a demo-Todo-app"
+        }
+
+      }
+       stage('Test-Stage') {
+            steps {
+            echo 'Running Test on Stage...'
+        }
+
+      }
+       stage('Deploy-to-Prod') {
+            steps {
+            echo 'Deploying to Prod...'
+            sh "hyscalectl login hyperion.hyscale.io -uhyscalecli@hyscale.io -pHysc@l3Cl!"
+            sh "hyscalectl  deploy -f ${WORKSPACE}/db/hyscale/service-spec/serviceSpec.yaml.tpl -f ${WORKSPACE}/app/hyscale/service-spec/serviceSpec.yaml.tpl -f ${WORKSPACE}/web/hyscale/service-spec/serviceSpec.yaml.tpl -e prod -p ${WORKSPACE}/app/hyscale/prod-props.yaml -a demo-Todo-app"
+        }
+
+      }
+       stage('Test-Prod') {
+            steps {
+            echo 'Running Test on Prod...'
+        }
+
+      }   
 
     }
 }
