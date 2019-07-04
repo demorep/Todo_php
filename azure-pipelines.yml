@@ -10,14 +10,16 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(Build.BinariesDirectory)'
+    includeRootFolder: true
+    archiveType: 'tar'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).tar.gz'
+    replaceExistingArchive: true
 - task: CopyFilesOverSSH@0
   inputs:
     sshEndpoint: 'hyscalectl-docker-jumpbox'
-    contents: '**'
+    contents: '$(Build.BuildId).tar.gz'
     targetFolder: '/tmp/todo_demo/$(Build.BuildNumber)/todo/' 
-- task: SSH@0
-  inputs:
-    sshEndpoint: 'hyscalectl-docker-jumpbox'
-    runOptions: 'commands'
-    commands: '/usr/bin/docker build --target install -t todo_app_artifact_image:$(Build.BuildNumber) -f /tmp/todo_demo/$(Build.BuildNumber)/todo/app/Dockerfile /tmp/todo_demo/$(Build.BuildNumber)/'
 
