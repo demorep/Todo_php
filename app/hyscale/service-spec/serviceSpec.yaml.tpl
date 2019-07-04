@@ -31,7 +31,7 @@ spec:
     source:
       store: "Jenkins"
       basedir: "/home/ubuntu/artifactory_home/hyperion-artifacts/app/${BUILD_NUMBER}"
-      path: "hyperion-app-artifact.tar.gz"
+      path: "app-bundle.tar.gz"
   config:
     commands: |-
        tar -xvzf /tmp/hyperion-app-artifact.tar.gz -C /var/www/

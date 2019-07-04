@@ -33,7 +33,7 @@ spec:
     source:
       store: Jenkins
       basedir: "/home/ubuntu/artifactory_home/hyperion-artifacts/web/${BUILD_NUMBER}/"
-      path: "hyperion-web-artifact.tar.gz"
+      path: "web-bundle.tar.gz"
   config:
     commands: |-
        mkdir -p /var/www
