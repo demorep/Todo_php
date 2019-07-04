@@ -42,8 +42,7 @@ steps:
       
       docker container rm -f todoapp_artifact
       
-      cp -rap /tmp/todo_demo/$(Build.BuildNumber)/todo/app/dependencies-install.sh /tmp/todo_demo
-      /$(Build.BuildNumber)/todo/artifacts/app/www/
+      cp -rap /tmp/todo_demo/$(Build.BuildNumber)/todo/app/dependencies-install.sh /tmp/todo_demo/$(Build.BuildNumber)/todo/artifacts/app/www/
       
       tar -czf /tmp/todo_demo/$(Build.BuildNumber)/todo/artifacts/app/app-bundle.tar.gz . -C /tmp/todo_demo/$(Build.BuildNumber)/todo/artifacts/app/www
       
