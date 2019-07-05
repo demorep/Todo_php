@@ -39,10 +39,6 @@ spec:
        echo "Installing Dependencies for app to run..."
        bash -x /var/www/dependencies-install.sh
        echo "Dependencies installed !"
-       echo "Migrating Databases..."
-       cd /var/www/
-       php artisan migrate:refresh
-       echo "Database Successfully Migrated !"
        
     props:
     - key: DB_PORT
