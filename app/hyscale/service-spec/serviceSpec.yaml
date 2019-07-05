@@ -64,6 +64,4 @@ spec:
     - key: APP_LOG_LEVEL
       value: "{{ APP_LOG_LEVEL | default('debug') }}"
     - key: APP_DEMO
-      value: "{{ APP_DEMO | default('default') }}"
-    - key: APP_DEMO2
-      value: "APP_DEMO2"
+      value: "default"
