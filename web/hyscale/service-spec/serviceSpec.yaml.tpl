@@ -15,7 +15,7 @@ spec:
   external: 
   - nginx-port
   stack:
-    name: nginx
+    name: nginx-web
     version: 1.10
     docker-registry: "dockerhublibrary"
     importImage: nginx:1.10
