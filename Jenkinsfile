@@ -60,10 +60,6 @@ pipeline {
 
       }
         stage('Deploy-to-Stage') {
-            input {
-                message "Deploy to stage?"
-                ok "Yes, we should."   
-            }
             steps {
             echo 'Deploying to Stage...'
             sh "hyscalectl login hyperion.hyscale.io -uhyscalecli@hyscale.io -pHysc@l3Cl!"
