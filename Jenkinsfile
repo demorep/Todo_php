@@ -38,6 +38,9 @@ pipeline {
                 message "Deploy with new servicespec?"
                 ok "Yes, we should."
             }
+            steps {
+                echo 'Proceeding..'
+            }
       }
         stage('Deploy-to-Dev') {
             steps {

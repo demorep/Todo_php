@@ -6,4 +6,5 @@ APP_ENV: local
 APP_DEBUG: true
 APP_LOG: daily
 APP_LOG_LEVEL: debug
+APP_DEMO: true
 
