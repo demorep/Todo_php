@@ -40,10 +40,12 @@ pipeline {
         stage('Test-Dev') {
             steps {
             echo 'Running Test on Dev...'
+            sh "sleep 3m"
         }
 
       }
         stage('Deploy-to-Stage') {
+            input "Deploy to stage?"
             steps {
             echo 'Deploying to Stage...'
             sh "hyscalectl login hyperion.hyscale.io -uhyscalecli@hyscale.io -pHysc@l3Cl!"
@@ -55,10 +57,12 @@ pipeline {
        stage('Test-Stage') {
             steps {
             echo 'Running Test on Stage...'
+            sh "sleep 3m"
         }
 
       }
        stage('Deploy-to-Prod') {
+            input "Deploy to prod?"
             steps {
             echo 'Deploying to Prod...'
             sh "hyscalectl login hyperion.hyscale.io -uhyscalecli@hyscale.io -pHysc@l3Cl!"
@@ -70,6 +74,7 @@ pipeline {
        stage('Test-Prod') {
             steps {
             echo 'Running Test on Prod...'
+            sh "sleep 3m"
         }
 
       }   
