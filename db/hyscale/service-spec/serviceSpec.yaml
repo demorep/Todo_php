@@ -3,9 +3,9 @@ apiVersion: hyscale.io/v1/
 metadata:
   name: database
   version: 1
-  replicas: "{{ REPLICAS | default('1') }}"
+  replicas: 1
   resourceLimits:
-    memory: "{{ MEMORY_LIMIT_IN_MB | default('512') }}"
+    memory: 512
   healthChecks:
   - port: 3306
     healthCheckType: TCP
@@ -32,6 +32,6 @@ spec:
     props:
     - key: MYSQL_ROOT_PASSWORD
       type: PASSWORD
-      value: "{{ MYSQL_ROOT_PASSWORD | default('c2VjcmV0') }}"
+      value: ""
     - key: MYSQL_DATABASE
       value: "dockerApp"
