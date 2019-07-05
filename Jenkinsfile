@@ -27,11 +27,23 @@ pipeline {
                  sh "mkdir -p /artifactory_home/hyperion-artifacts/app/${BUILD_NUMBER}/ /artifactory_home/hyperion-artifacts/web/${BUILD_NUMBER}/ && cp ${WORKSPACE}/artifacts/app/app-bundle.tar.gz /artifactory_home/hyperion-artifacts/app/${BUILD_NUMBER}/ && cp ${WORKSPACE}/artifacts/web/web-bundle.tar.gz /artifactory_home/hyperion-artifacts/web/${BUILD_NUMBER}/"
         }
       }
+        stage('Apply Servicespec') {
+            steps {
+                sh "hyscalectl login hyperion.hyscale.io -uhyscalecli@hyscale.io -pHysc@l3Cl!"
+                sh "hyscalectl  service add -f ${WORKSPACE}/app/hyscale/service-spec/serviceSpec.yaml -a demo-Todo-app"
+        }
+      }
+        stage('Approve Env-Updates') {
+            input {
+                message "Deploy with new servicespec?"
+                ok "Yes, we should."
+            }
+      }
         stage('Deploy-to-Dev') {
             steps {
             echo 'Deploying to Dev...'
             sh "hyscalectl login hyperion.hyscale.io -uhyscalecli@hyscale.io -pHysc@l3Cl!"
-            sh "hyscalectl  deploy -f ${WORKSPACE}/db/hyscale/service-spec/serviceSpec.yaml -f ${WORKSPACE}/app/hyscale/service-spec/serviceSpec.yaml -f ${WORKSPACE}/web/hyscale/service-spec/serviceSpec.yaml -e dev -p ${WORKSPACE}/config/dev-props.yaml -a demo-Todo-app"
+            sh "hyscalectl deploy -s database,app,web -e dev -p ${WORKSPACE}/config/dev-props.yaml -a demo-Todo-app"
             sh "hyscalectl  track env dev -a demo-Todo-app"
         }
  
@@ -52,7 +64,7 @@ pipeline {
             steps {
             echo 'Deploying to Stage...'
             sh "hyscalectl login hyperion.hyscale.io -uhyscalecli@hyscale.io -pHysc@l3Cl!"
-            sh "hyscalectl  deploy -f ${WORKSPACE}/db/hyscale/service-spec/serviceSpec.yaml -f ${WORKSPACE}/app/hyscale/service-spec/serviceSpec.yaml -f ${WORKSPACE}/web/hyscale/service-spec/serviceSpec.yaml -e stage -p ${WORKSPACE}/config/stage-props.yaml -a demo-Todo-app"
+            sh "hyscalectl deploy -s database,app,web -e stage -p ${WORKSPACE}/config/stage-props.yaml -a demo-Todo-app"
            sh "hyscalectl  track env stage -a demo-Todo-app"
         }
 
@@ -72,7 +84,7 @@ pipeline {
             steps {
             echo 'Deploying to Prod...'
             sh "hyscalectl login hyperion.hyscale.io -uhyscalecli@hyscale.io -pHysc@l3Cl!"
-            sh "hyscalectl  deploy -f ${WORKSPACE}/db/hyscale/service-spec/serviceSpec.yaml -f ${WORKSPACE}/app/hyscale/service-spec/serviceSpec.yaml -f ${WORKSPACE}/web/hyscale/service-spec/serviceSpec.yaml -e prod -p ${WORKSPACE}/config/prod-props.yaml -a demo-Todo-app"
+            sh "hyscalectl deploy -s database,app,web -e prod -p ${WORKSPACE}/config/prod-props.yaml -a demo-Todo-app"
            sh "hyscalectl track env prod -a demo-Todo-app"
         }
 
