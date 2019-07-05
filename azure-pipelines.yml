@@ -44,11 +44,13 @@ steps:
       
       cp -rap /tmp/todo_demo/$(Build.BuildNumber)/todo/app/dependencies-install.sh /tmp/todo_demo/$(Build.BuildNumber)/todo/artifacts/app/www/
       
-      tar -czf /tmp/todo_demo/$(Build.BuildNumber)/todo/artifacts/app/app-bundle.tar.gz . -C /tmp/todo_demo/$(Build.BuildNumber)/todo/artifacts/app/www
+      tar -czf /tmp/todo_demo/$(Build.BuildNumber)/todo/artifacts/app/app-bundle.tar.gz -C /tmp/todo_demo/$(Build.BuildNumber)/todo/artifacts/app/www .
       
-      cp -r /tmp/todo_demo/$(Build.BuildNumber)/todo/src /tmp/todo_demo/$(Build.BuildNumber)/todo/artifacts/web/ && cp -r /tmp/todo_demo/$(Build.BuildNumber)/todo/web/vhost.conf.tpl /tmp/todo_demo/$(Build.BuildNumber)/todo/artifacts/web/src/
+      cp -r /tmp/todo_demo/$(Build.BuildNumber)/todo/src /tmp/todo_demo/$(Build.BuildNumber)/todo/artifacts/web/ 
+     
+      cp -r /tmp/todo_demo/$(Build.BuildNumber)/todo/web/vhost.conf.tpl /tmp/todo_demo/$(Build.BuildNumber)/todo/artifacts/web/src/
       
-      tar -cvzf /tmp/todo_demo/$(Build.BuildNumber)/todo/artifacts/web/web-bundle.tar.gz . -C /tmp/todo_demo/$(Build.BuildNumber)/todo/artifacts/web/src
+      tar -czf /tmp/todo_demo/$(Build.BuildNumber)/todo/artifacts/web/web-bundle.tar.gz  -C /tmp/todo_demo/$(Build.BuildNumber)/todo/artifacts/web/src .
       
       sed -i ''s/@@BUILD_NUMBER@@/$(Build.BuildNumber)/g'' /tmp/todo_demo/$(Build.BuildNumber)/todo/app/hyscale/*-props.yaml /tmp/todo_demo/$(Build.BuildNumber)/todo/web/hyscale/*-props.yaml
       
