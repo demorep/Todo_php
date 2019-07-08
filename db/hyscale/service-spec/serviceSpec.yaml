@@ -32,6 +32,6 @@ spec:
     props:
     - key: MYSQL_ROOT_PASSWORD
       type: PASSWORD
-      value: ""
+      value: "{{ MYSQL_ROOT_PASSWORD | default('') }}"
     - key: MYSQL_DATABASE
       value: "dockerApp"

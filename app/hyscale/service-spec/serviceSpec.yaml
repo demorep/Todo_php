@@ -52,7 +52,7 @@ spec:
       value: "dockerApp"
     - key: DB_PASSWORD
       type: PASSWORD
-      value: ""
+      value: "{{ DB_PASSWORD | default('') }}"
     - key: DB_CONNECTION
       value: "mysql"
     - key: APP_DEBUG
