@@ -39,6 +39,7 @@ spec:
        echo "Installing Dependencies for app to run..."
        bash -x /var/www/dependencies-install.sh
        echo "Dependencies installed !"
+       cd ..
        php artisan migrate
        
     props:
