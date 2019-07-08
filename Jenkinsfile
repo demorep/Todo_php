@@ -47,7 +47,7 @@ pipeline {
             echo 'Deploying to Dev...'
             sh "hyscalectl login hyperion.hyscale.io -uhyscalecli@hyscale.io -pHysc@l3Cl!"
             sh "hyscalectl deploy -s database,app,web -e dev -p ${WORKSPACE}/config/dev-props.yaml -a demo-Todo-app"
-            sh "hyscalectl  track env dev -a demo-Todo-app"
+            sleep(120)
         }
  
       }
@@ -64,7 +64,7 @@ pipeline {
             echo 'Deploying to Stage...'
             sh "hyscalectl login hyperion.hyscale.io -uhyscalecli@hyscale.io -pHysc@l3Cl!"
             sh "hyscalectl deploy -s database,app,web -e stage -p ${WORKSPACE}/config/stage-props.yaml -a demo-Todo-app"
-           sh "hyscalectl  track env stage -a demo-Todo-app"
+            sleep(120)
         }
 
       }
@@ -84,7 +84,7 @@ pipeline {
             echo 'Deploying to Prod...'
             sh "hyscalectl login hyperion.hyscale.io -uhyscalecli@hyscale.io -pHysc@l3Cl!"
             sh "hyscalectl deploy -s database,app,web -e prod -p ${WORKSPACE}/config/prod-props.yaml -a demo-Todo-app"
-           sh "hyscalectl track env prod -a demo-Todo-app"
+            sleep(120)
         }
 
       }
