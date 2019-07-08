@@ -33,9 +33,9 @@ pipeline {
                 sh "hyscalectl  service add -f ${WORKSPACE}/app/hyscale/service-spec/serviceSpec.yaml -a demo-Todo-app"
         }
       }
-        stage('Approve Env-Updates') {
+        stage('Approve Env-Updates-Dev') {
             input {
-                message "Deploy with new servicespec?"
+                message "Deploy with new servicespec on dev?"
                 ok "Yes, we should."
             }
             steps {
@@ -59,7 +59,16 @@ pipeline {
         }
 
       }
-        stage('Deploy-to-Stage') {
+        stage('Approve Env-Updates-stage') {
+            input {
+                message "Deploy with new servicespec on stage?"
+                ok "Yes, we should."
+            }
+            steps {
+                echo 'Proceeding..'
+            }
+      }
+        stage('Deploy-to-Stage') { 
             steps {
             echo 'Deploying to Stage...'
             sh "hyscalectl login hyperion.hyscale.io -uhyscalecli@hyscale.io -pHysc@l3Cl!"
