@@ -40,7 +40,7 @@ pipeline {
         stage('Test-Dev') {
             steps {
             echo 'Running Test on Dev...'
-            sleep(180)
+            sleep(80)
         }
 
       }
@@ -60,7 +60,7 @@ pipeline {
        stage('Test-Stage') {
             steps {
             echo 'Running Test on Stage...'
-            sleep(180)
+            sleep(80)
         }
 
       }
@@ -80,7 +80,7 @@ pipeline {
        stage('Test-Prod') {
             steps {
             echo 'Running Test on Prod...'
-            sleep(180)
+            sleep(80)
         }
 
       }   
