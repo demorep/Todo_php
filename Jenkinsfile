@@ -72,7 +72,7 @@ pipeline {
             steps {
             echo 'Deploying to Prod...'
             sh "hyscalectl login hyperion.hyscale.io -uhyscalecli@hyscale.io -pHysc@l3Cl!"
-            sh "hyscalectl deploy -s database,app,web -e prod -p ${WORKSPACE}/config/prod-props.yaml -a demo-Todo-app"
+            sh "hyscalectl deploy -s app -e prod -p ${WORKSPACE}/config/prod-props.yaml -a demo-Todo-app"
             sleep(120)
         }
 
