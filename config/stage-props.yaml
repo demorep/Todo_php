@@ -7,6 +7,7 @@ app:
   APP_DEBUG: true
   APP_LOG: daily
   APP_LOG_LEVEL: debug
+  DEMO_TEST: stage-v1
 web:
   REPLICAS: 1
   MEMORY_LIMIT_IN_MB: 1024
