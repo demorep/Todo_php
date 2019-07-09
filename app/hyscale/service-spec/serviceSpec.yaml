@@ -65,5 +65,3 @@ spec:
       value: "{{ APP_LOG | default('daily') }}"
     - key: APP_LOG_LEVEL
       value: "{{ APP_LOG_LEVEL | default('debug') }}"
-    - key: DEMO_TEST
-      value: "v1"
