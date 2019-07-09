@@ -44,16 +44,11 @@ pipeline {
         }
 
       }
-        stage('Approve Deployment') {
+        stage('Deploy-to-Stage') {
             input {
-                message "Do you approve Deployment to stage?"
+                message "Deploy to stage?"
                 ok "Yes"
-            }
-            steps {
-                echo 'Proceeding..'
-            }
-      }
-        stage('Deploy-to-Stage') { 
+            } 
             steps {
             echo 'Deploying to Stage...'
             sh "hyscalectl login hyperion.hyscale.io -uhyscalecli@hyscale.io -pHysc@l3Cl!"
