@@ -27,26 +27,11 @@ pipeline {
                  sh "mkdir -p /artifactory_home/hyperion-artifacts/app/${BUILD_NUMBER}/ /artifactory_home/hyperion-artifacts/web/${BUILD_NUMBER}/ && cp ${WORKSPACE}/artifacts/app/app-bundle.tar.gz /artifactory_home/hyperion-artifacts/app/${BUILD_NUMBER}/ && cp ${WORKSPACE}/artifacts/web/web-bundle.tar.gz /artifactory_home/hyperion-artifacts/web/${BUILD_NUMBER}/"
         }
       }
-        stage('Apply Servicespec') {
-            steps {
-                sh "hyscalectl login hyperion.hyscale.io -uhyscalecli@hyscale.io -pHysc@l3Cl!"
-                sh "hyscalectl  service add -f ${WORKSPACE}/app/hyscale/service-spec/serviceSpec.yaml -a demo-Todo-app"
-        }
-      }
-        stage('Approve Env-Updates-Dev') {
-            input {
-                message "Deploy with new servicespec on dev?"
-                ok "Yes, we should."
-            }
-            steps {
-                echo 'Proceeding..'
-            }
-      }
         stage('Deploy-to-Dev') {
             steps {
             echo 'Deploying to Dev...'
             sh "hyscalectl login hyperion.hyscale.io -uhyscalecli@hyscale.io -pHysc@l3Cl!"
-            sh "hyscalectl deploy -s database,app,web -e dev -p ${WORKSPACE}/config/dev-props.yaml -a demo-Todo-app"
+            sh "hyscalectl deploy -s app -e dev -p ${WORKSPACE}/config/dev-props.yaml -a demo-Todo-app"
             sleep(120)
         }
  
@@ -59,10 +44,10 @@ pipeline {
         }
 
       }
-        stage('Approve Env-Updates-stage') {
+        stage('Approve Deployment') {
             input {
-                message "Deploy with new servicespec on stage?"
-                ok "Yes, we should."
+                message "Do you approve Deployment to stage?"
+                ok "Yes"
             }
             steps {
                 echo 'Proceeding..'
@@ -72,7 +57,7 @@ pipeline {
             steps {
             echo 'Deploying to Stage...'
             sh "hyscalectl login hyperion.hyscale.io -uhyscalecli@hyscale.io -pHysc@l3Cl!"
-            sh "hyscalectl deploy -s database,app,web -e stage -p ${WORKSPACE}/config/stage-props.yaml -a demo-Todo-app"
+            sh "hyscalectl deploy -s app -e stage -p ${WORKSPACE}/config/stage-props.yaml -a demo-Todo-app"
             sleep(120)
         }
 
@@ -87,7 +72,7 @@ pipeline {
        stage('Deploy-to-Prod') {
             input {
                 message "Deploy to prod?"
-                ok "Yes, we should."   
+                ok "Yes"   
             }
             steps {
             echo 'Deploying to Prod...'
