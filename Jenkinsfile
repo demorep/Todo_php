@@ -30,7 +30,10 @@ pipeline {
         stage('Image & Deploy-to-Dev') {
             steps {
             echo 'Deploying to Dev...'
-            sh "source /root/.hyslogin && hyscalectl login hyperion.hyscale.io -u${hys_user} -p${hys_pwd}"
+            load "$JENKINS_HOME/.envvars/hyslogin.groovy"
+            echo "${env.hys_user}"
+            echo "${env.hys_pwd}"
+            sh "hyscalectl login hyperion.hyscale.io -u${env.hys_user} -p${env.hys_pwd}"
             sh "hyscalectl deploy -s app -e dev -p ${WORKSPACE}/config/dev-props.yaml -a demo-Todo-app"
             sleep(120)
         }
