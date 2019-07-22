@@ -37,7 +37,7 @@ pipeline {
             echo "User name: $USER"
             echo "Password:  $PASSWORD"
                    }
-            sh """echo \$USER \$PASSWORD"""
+            sh "echo ${USER} ${PASSWORD}"
             sh "hyscalectl login hyperion.hyscale.io -u$USER -p$PASSWORD"
             sh "hyscalectl deploy -s app -e dev -p ${WORKSPACE}/config/dev-props.yaml -a demo-Todo-app"
             sleep(120)
