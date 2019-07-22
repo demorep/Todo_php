@@ -30,7 +30,7 @@ pipeline {
         stage('Image & Deploy-to-Dev') {
             steps {
             echo 'Deploying to Dev...'
-            sh "hyscalectl login hyperion.hyscale.io -uhyscalecli@hyscale.io -pHysc@l3Cl!"
+            sh "source /root/.hyslogin && hyscalectl login hyperion.hyscale.io -u${hys_user} -p${hys_pwd}"
             sh "hyscalectl deploy -s app -e dev -p ${WORKSPACE}/config/dev-props.yaml -a demo-Todo-app"
             sleep(120)
         }
@@ -51,7 +51,7 @@ pipeline {
             } 
             steps {
             echo 'Deploying to Stage...'
-            sh "hyscalectl login hyperion.hyscale.io -uhyscalecli@hyscale.io -pHysc@l3Cl!"
+            sh "source /root/.hyslogin && hyscalectl login hyperion.hyscale.io -u$hys_user -p$hys_pwd"
             sh "hyscalectl deploy -s app -e stage -p ${WORKSPACE}/config/stage-props.yaml -a demo-Todo-app"
             sleep(120)
         }
@@ -71,7 +71,7 @@ pipeline {
             }
             steps {
             echo 'Deploying to Prod...'
-            sh "hyscalectl login hyperion.hyscale.io -uhyscalecli@hyscale.io -pHysc@l3Cl!"
+            sh "source /root/.hyslogin && hyscalectl login hyperion.hyscale.io -u$hys_user -p$hys_pwd"
             sh "hyscalectl deploy -s app -e prod -p ${WORKSPACE}/config/prod-props.yaml -a demo-Todo-app"
             sleep(120)
         }
