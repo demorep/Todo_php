@@ -34,9 +34,6 @@ pipeline {
                          credentialsId: 'hyscli',
                          passwordVariable: 'PASSWORD',
                          usernameVariable: 'USER')]) {
-            echo "User name: $USER"
-            echo "Password:  $PASSWORD"
-            sh "echo ${USER} ${PASSWORD}"                                                                     
             sh "hyscalectl login hyperion.hyscale.io -u$USER -p$PASSWORD"
                    }
             sh "hyscalectl deploy -s app -e dev -p ${WORKSPACE}/config/dev-props.yaml -a demo-Todo-app"
@@ -59,7 +56,12 @@ pipeline {
             } 
             steps {
             echo 'Deploying to Stage...'
-            sh "source /root/.hyslogin && hyscalectl login hyperion.hyscale.io -u$hys_user -p$hys_pwd"
+            withCredentials([usernamePassword(                                                     
+                         credentialsId: 'hyscli',                                                                                 
+                         passwordVariable: 'PASSWORD',                                                                            
+                         usernameVariable: 'USER')]) {                                                                            
+            sh "hyscalectl login hyperion.hyscale.io -u$USER -p$PASSWORD"                                                         
+                   }
             sh "hyscalectl deploy -s app -e stage -p ${WORKSPACE}/config/stage-props.yaml -a demo-Todo-app"
             sleep(120)
         }
@@ -79,7 +81,12 @@ pipeline {
             }
             steps {
             echo 'Deploying to Prod...'
-            sh "source /root/.hyslogin && hyscalectl login hyperion.hyscale.io -u$hys_user -p$hys_pwd"
+            withCredentials([usernamePassword(                                                     
+                         credentialsId: 'hyscli',                                                                                 
+                         passwordVariable: 'PASSWORD',                                                                            
+                         usernameVariable: 'USER')]) {                                                                            
+            sh "hyscalectl login hyperion.hyscale.io -u$USER -p$PASSWORD"                                                         
+                   }
             sh "hyscalectl deploy -s app -e prod -p ${WORKSPACE}/config/prod-props.yaml -a demo-Todo-app"
             sleep(120)
         }
